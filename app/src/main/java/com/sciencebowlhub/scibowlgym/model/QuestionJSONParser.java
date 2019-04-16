@@ -1,4 +1,4 @@
-package com.jakepolatty.highschoolsciencebowlpractice.model;
+package com.sciencebowlhub.scibowlgym.model;
 
 import android.content.Context;
 
@@ -6,14 +6,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.EnumMap;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -33,8 +32,12 @@ public class QuestionJSONParser {
         return ourInstance;
     }
 
+    private Random rand;
+
     private Question[] parsedQuestions;
     private Question[] currentReaderSet;
+
+    private EnumMap<Category, List<Question>> categoryQuestions;
 
     // Initialization from json
 
@@ -52,17 +55,25 @@ public class QuestionJSONParser {
 
         ArrayList<Question> tempQuestionList = new ArrayList<Question>();
 
+        categoryQuestions = new EnumMap<Category, List<Question>>(Category.class);
+        for (Category cat : Category.values()) {
+            categoryQuestions.put(cat, new ArrayList<Question>());
+        }
+
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                tempQuestionList.add(new Question(jsonObject));
+                Question question = new Question(jsonObject);
+                categoryQuestions.get(question.getCategory()).add(question);
+                tempQuestionList.add(question);
             } catch (JSONException e) {
                 // If something is wrong with the initialization, the element won't be added
                 continue;
             }
         }
 
-        this.parsedQuestions = tempQuestionList.toArray(new Question[0]);
+        parsedQuestions = tempQuestionList.toArray(new Question[0]);
+        rand = new Random();
     }
 
     // Random question access methods
@@ -72,7 +83,6 @@ public class QuestionJSONParser {
     }
 
     public Question getRandomQuestion() {
-        Random rand = new Random();
         int randomIndex = rand.nextInt(parsedQuestions.length);
         return parseQuestionForIndex(randomIndex);
     }

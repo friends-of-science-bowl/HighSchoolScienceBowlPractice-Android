@@ -1,4 +1,4 @@
-package com.jakepolatty.highschoolsciencebowlpractice.ui;
+package com.sciencebowlhub.scibowlgym.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,18 +10,13 @@ import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.DefaultValueFormatter;
-import com.jakepolatty.highschoolsciencebowlpractice.R;
-import com.jakepolatty.highschoolsciencebowlpractice.model.QuizModeStats;
-import com.jakepolatty.highschoolsciencebowlpractice.model.QuizStatsFormatter;
+import com.sciencebowlhub.scibowlgym.R;
+import com.sciencebowlhub.scibowlgym.model.QuizModeStats;
+import com.sciencebowlhub.scibowlgym.model.QuizStatsFormatter;
 
-import java.text.FieldPosition;
-import java.text.NumberFormat;
-import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.jakepolatty.highschoolsciencebowlpractice.model;
+package com.sciencebowlhub.scibowlgym.model;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.jakepolatty.highschoolsciencebowlpractice.model;
+package com.sciencebowlhub.scibowlgym.model;
 
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IValueFormatter;

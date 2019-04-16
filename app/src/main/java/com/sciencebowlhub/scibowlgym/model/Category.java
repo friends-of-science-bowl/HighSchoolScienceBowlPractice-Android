@@ -1,4 +1,4 @@
-package com.jakepolatty.highschoolsciencebowlpractice.model;
+package com.sciencebowlhub.scibowlgym.model;
 
 /**
  * Created by jakepolatty on 9/7/17.

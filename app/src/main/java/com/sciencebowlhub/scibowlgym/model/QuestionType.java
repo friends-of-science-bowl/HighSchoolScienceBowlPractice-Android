@@ -1,16 +1,16 @@
-package com.jakepolatty.highschoolsciencebowlpractice.model;
+package com.sciencebowlhub.scibowlgym.model;
 
 /**
  * Created by jakepolatty on 9/8/17.
  */
 
-public enum AnswerType {
-    MultipleChoice("Multiple Choice"),
-    ShortAnswer("Short Answer");
+public enum QuestionType {
+    Tossup("Tossup"),
+    Bonus("Bonus");
 
     private final String displayName;
 
-    AnswerType(String s) {
+    QuestionType(String s) {
         displayName = s;
     }
 

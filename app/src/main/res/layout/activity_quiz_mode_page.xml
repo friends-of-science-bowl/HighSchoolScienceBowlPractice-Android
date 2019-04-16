@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context="com.jakepolatty.highschoolsciencebowlpractice.ui.QuizModePage">
+    tools:context="com.sciencebowlhub.scibowlgym.ui.QuizModePage">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -83,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textColor="@color/metadataLabelText"/>
 
             <TextView
@@ -91,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textColor="@color/metadataLabelText"/>
 
             <TextView
@@ -99,10 +100,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="14sp"
+                android:textSize="20sp"
                 android:textColor="@color/metadataLabelText"/>
 
-            <TextView
+            <katex.hourglass.in.mathlib.MathView
                 android:id="@+id/questionTextLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,16 +112,17 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:textSize="17sp"
-                android:textColor="@color/white100"/>
+                app:setTextSize="12sp"
+                app:setTextColor="@color/white100"/>
 
-            <Button
+            <katex.hourglass.in.mathlib.MathView
                 android:id="@+id/optionWButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/quizoptionbutton"
-                android:textColor="@color/white100"
-                android:textSize="12sp"
+                app:setClickable="true"
+                app:setTextSize="12sp"
+                app:setTextColor="@color/white100"
                 android:textAllCaps="false"
                 android:gravity="center_vertical|start"
                 android:paddingLeft="10dp"
@@ -134,13 +136,14 @@
                 android:layout_marginRight="15dp"
                 android:onClick="selectOptionW"/>
 
-            <Button
+            <katex.hourglass.in.mathlib.MathView
                 android:id="@+id/optionXButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/quizoptionbutton"
-                android:textColor="@color/white100"
-                android:textSize="12sp"
+                app:setClickable="true"
+                app:setTextSize="12sp"
+                app:setTextColor="@color/white100"
                 android:textAllCaps="false"
                 android:gravity="center_vertical|start"
                 android:paddingLeft="10dp"
@@ -154,13 +157,14 @@
                 android:layout_marginRight="15dp"
                 android:onClick="selectOptionX"/>
 
-            <Button
+          <katex.hourglass.in.mathlib.MathView
                 android:id="@+id/optionYButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/quizoptionbutton"
-                android:textColor="@color/white100"
-                android:textSize="12sp"
+                app:setClickable="true"
+                app:setTextSize="12sp"
+                app:setTextColor="@color/white100"
                 android:textAllCaps="false"
                 android:gravity="center_vertical|start"
                 android:paddingLeft="10dp"
@@ -174,13 +178,14 @@
                 android:layout_marginRight="15dp"
                 android:onClick="selectOptionY"/>
 
-            <Button
+          <katex.hourglass.in.mathlib.MathView
                 android:id="@+id/optionZButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/quizoptionbutton"
-                android:textColor="@color/white100"
-                android:textSize="12sp"
+                app:setClickable="true"
+                app:setTextSize="12sp"
+                app:setTextColor="@color/white100"
                 android:textAllCaps="false"
                 android:gravity="center_vertical|start"
                 android:paddingLeft="10dp"
@@ -204,5 +209,4 @@
                 android:textColor="@color/timerLabelText"/>
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

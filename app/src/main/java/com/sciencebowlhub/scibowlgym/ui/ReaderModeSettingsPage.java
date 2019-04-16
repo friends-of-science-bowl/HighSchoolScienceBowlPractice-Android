@@ -1,4 +1,4 @@
-package com.jakepolatty.highschoolsciencebowlpractice.ui;
+package com.sciencebowlhub.scibowlgym.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
 
-import com.jakepolatty.highschoolsciencebowlpractice.R;
-import com.jakepolatty.highschoolsciencebowlpractice.model.QuestionJSONParser;
+import com.sciencebowlhub.scibowlgym.R;
+import com.sciencebowlhub.scibowlgym.model.QuestionJSONParser;
 
 public class ReaderModeSettingsPage extends AppCompatActivity {
     private static final String[] setOptions = {"Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8", "Set 9"};

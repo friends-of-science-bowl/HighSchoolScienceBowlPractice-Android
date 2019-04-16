@@ -1,4 +1,4 @@
-package com.jakepolatty.highschoolsciencebowlpractice.ui;
+package com.sciencebowlhub.scibowlgym.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,20 +11,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.jakepolatty.highschoolsciencebowlpractice.R;
-import com.jakepolatty.highschoolsciencebowlpractice.model.AnswerType;
-import com.jakepolatty.highschoolsciencebowlpractice.model.Question;
-import com.jakepolatty.highschoolsciencebowlpractice.model.QuestionJSONParser;
-import com.jakepolatty.highschoolsciencebowlpractice.model.QuestionType;
+import com.sciencebowlhub.scibowlgym.R;
+import com.sciencebowlhub.scibowlgym.model.AnswerType;
+import com.sciencebowlhub.scibowlgym.model.Question;
+import com.sciencebowlhub.scibowlgym.model.QuestionJSONParser;
+import com.sciencebowlhub.scibowlgym.model.QuestionType;
+
+import katex.hourglass.in.mathlib.MathView;
 
 public class ReaderModePage extends AppCompatActivity {
     // Question text fields
     private TextView roundSetNumLabel;
     private TextView questionNumLabel;
     private TextView categoryTypeLabel;
-    private TextView questionTextLabel;
-    private TextView answerOptionsLabel;
-    private TextView answerLabel;
+    private MathView questionTextLabel;
+    private MathView answerOptionsLabel;
+    private MathView answerLabel;
     private TextView timerLabel;
 
     // Toolbar Buttons
@@ -78,38 +80,38 @@ public class ReaderModePage extends AppCompatActivity {
             seconds = bonusTime;
         }
 
-        roundSetNumLabel = (TextView) findViewById(R.id.roundSetNumLabel);
+        roundSetNumLabel = findViewById(R.id.roundSetNumLabel);
         roundSetNumLabel.setText("Question Set " + question.getSetNumber() + " Round " + question.getRoundNumber());
 
-        questionNumLabel = (TextView) findViewById(R.id.questionNumLabel);
+        questionNumLabel = findViewById(R.id.questionNumLabel);
         questionNumLabel.setText("Question " + question.getQuestionNumber() + " " + question.getQuestionType().toString());
 
-        categoryTypeLabel = (TextView) findViewById(R.id.categoryTypeLabel);
+        categoryTypeLabel = findViewById(R.id.categoryTypeLabel);
         categoryTypeLabel.setText(question.getCategory().toString() + " " + question.getAnswerType().toString());
 
-        questionTextLabel = (TextView) findViewById(R.id.questionTextLabel);
-        questionTextLabel.setText(question.getQuestionText());
+        questionTextLabel = findViewById(R.id.questionTextLabel);
+        questionTextLabel.setDisplayText(question.getQuestionText());
 
-        answerOptionsLabel = (TextView) findViewById(R.id.answerOptionsLabel);
+        answerOptionsLabel = findViewById(R.id.answerOptionsLabel);
         if (question.getAnswerType() == AnswerType.MultipleChoice && question.getAnswerChoices().length == 4) {
             System.out.println("Test");
-            answerOptionsLabel.setText(
-                    question.getAnswerChoices()[0]+"\n"+
-                    question.getAnswerChoices()[1]+"\n"+
-                    question.getAnswerChoices()[2]+"\n"+
-                    question.getAnswerChoices()[3]+"\n"
+            answerOptionsLabel.setDisplayText(
+                    question.getAnswerChoices()[0]+"<br>"+
+                    question.getAnswerChoices()[1]+"<br>"+
+                    question.getAnswerChoices()[2]+"<br>"+
+                    question.getAnswerChoices()[3]
             );
         }
 
-        answerLabel = (TextView) findViewById(R.id.answerLabel);
-        answerLabel.setText("Answer: " + question.getAnswer());
+        answerLabel = findViewById(R.id.answerLabel);
+        answerLabel.setDisplayText("Answer: " + question.getAnswer());
 
-        timerLabel = (TextView) findViewById(R.id.timerLabel);
+        timerLabel = findViewById(R.id.timerLabel);
         timerLabel.setText(seconds + " Seconds Left");
 
-        menuButton = (Button) findViewById(R.id.menuButton);
+        menuButton = findViewById(R.id.menuButton);
 
-        nextButton = (Button) findViewById(R.id.nextButton);
+        nextButton = findViewById(R.id.nextButton);
         if (questionIndex == QuestionJSONParser.getInstance().getCurrentReaderSetLength() - 1) {
             nextButton.setText("Finish Set");
             nextButton.setOnClickListener(new View.OnClickListener() {
@@ -122,11 +124,11 @@ public class ReaderModePage extends AppCompatActivity {
             });
         }
 
-        startTimerButton = (Button) findViewById(R.id.startTimerButton);
+        startTimerButton = findViewById(R.id.startTimerButton);
 
-        timerBar = (LinearLayout) findViewById(R.id.timerBar);
-        roundTimeLabel = (TextView) findViewById(R.id.roundTimeLabel);
-        roundTimerStartToggle = (ToggleButton) findViewById(R.id.roundTimerStartToggle);
+        timerBar = findViewById(R.id.timerBar);
+        roundTimeLabel = findViewById(R.id.roundTimeLabel);
+        roundTimerStartToggle = findViewById(R.id.roundTimerStartToggle);
 
         if (!isTimedRound) {
             timerBar.setVisibility(View.INVISIBLE);

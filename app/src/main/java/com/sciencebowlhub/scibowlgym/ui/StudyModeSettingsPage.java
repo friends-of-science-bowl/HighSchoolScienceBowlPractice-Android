@@ -1,4 +1,4 @@
-package com.jakepolatty.highschoolsciencebowlpractice.ui;
+package com.sciencebowlhub.scibowlgym.ui;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,13 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.NumberPicker;
 import android.widget.ToggleButton;
 
-import com.jakepolatty.highschoolsciencebowlpractice.R;
-import com.jakepolatty.highschoolsciencebowlpractice.model.QuizModeStats;
+import com.sciencebowlhub.scibowlgym.R;
 
-public class QuizModeSettingsPage extends AppCompatActivity {
+public class StudyModeSettingsPage extends AppCompatActivity {
+    private static final String[] roundOptions = {"All Rounds", "Round 1", "Round 2", "Round 3", "Round 4", "Round 5", "Round 6", "Round 7", "Round 8", "Round 9", "Round 10", "Round 11", "Round 12", "Round 13", "Round 14", "Round 15", "Round 16", "Round 17"};
+
     private String selectedCategory = "Random";
 
     // Topic option toggle buttons
@@ -24,15 +25,14 @@ public class QuizModeSettingsPage extends AppCompatActivity {
     private ToggleButton physicsButton;
     private ToggleButton randomButton;
 
-    private Spinner tossupTimeSpinner;
-    private Spinner bonusTimeSpinner;
+    private NumberPicker roundNumPicker;
 
     private Button menuButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz_mode_settings);
+        setContentView(R.layout.activity_study_mode_settings_page);
 
         biologyButton = (ToggleButton) findViewById(R.id.biologyButton);
         chemistryButton = (ToggleButton) findViewById(R.id.chemistryButton);
@@ -42,59 +42,29 @@ public class QuizModeSettingsPage extends AppCompatActivity {
         physicsButton = (ToggleButton) findViewById(R.id.physicsButton);
         randomButton = (ToggleButton) findViewById(R.id.randomButton);
 
-        tossupTimeSpinner = (Spinner) findViewById(R.id.tossupTimeSelector);
-        bonusTimeSpinner = (Spinner) findViewById(R.id.bonusTimeSelector);
+        roundNumPicker = (NumberPicker) findViewById(R.id.roundNumPicker);
+        roundNumPicker.setMinValue(0);
+        roundNumPicker.setMaxValue(roundOptions.length-1);
+        roundNumPicker.setWrapSelectorWheel(false);
+        roundNumPicker.setDisplayedValues(roundOptions);
 
         menuButton = (Button) findViewById(R.id.menuButton);
     }
 
-    public void startQuizMode(View view) {
-        Intent intent = new Intent(QuizModeSettingsPage.this, QuizModePage.class);
+    public void startStudyMode(View view) {
+        Intent intent = new Intent(StudyModeSettingsPage.this, StudyModePage.class);
         intent.putExtra("CATEGORY", selectedCategory);
 
-        int tossupTime = getTossupTimeSelected();
-        intent.putExtra("TOSSUP_TIME", tossupTime);
-        int bonusTime = getBonusTimeSelected();
-        intent.putExtra("BONUS_TIME", bonusTime);
-
-        QuizModeStats stats = new QuizModeStats();
-        intent.putExtra("STATS", stats);
+        int roundNum = roundNumPicker.getValue();
+        intent.putExtra("ROUND", roundNum);
 
         startActivity(intent);
     }
 
     public void returnMainMenu(View view) {
         menuButton.setTextColor(Color.parseColor("#94cffe"));
-        Intent intent = new Intent(QuizModeSettingsPage.this, HomePage.class);
+        Intent intent = new Intent(StudyModeSettingsPage.this, HomePage.class);
         startActivity(intent);
-    }
-
-    private int getTossupTimeSelected() {
-        String timeString = tossupTimeSpinner.getSelectedItem().toString();
-        switch (timeString) {
-            case "5 Seconds": return 5;
-            case "10 Seconds": return 10;
-            case "15 Seconds": return 15;
-            case "20 Seconds": return 20;
-            case "25 Seconds": return 25;
-            case "30 Seconds": return 30;
-            default: return 10;
-        }
-    }
-
-    private int getBonusTimeSelected() {
-        String timeString = bonusTimeSpinner.getSelectedItem().toString();
-        switch (timeString) {
-            case "5 Seconds": return 5;
-            case "10 Seconds": return 10;
-            case "15 Seconds": return 15;
-            case "20 Seconds": return 20;
-            case "25 Seconds": return 25;
-            case "30 Seconds": return 30;
-            case "35 Seconds": return 35;
-            case "40 Seconds": return 40;
-            default: return 10;
-        }
     }
 
     private void toggleOff() {

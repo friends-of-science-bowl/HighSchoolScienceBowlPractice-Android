@@ -1,33 +1,39 @@
-package com.jakepolatty.highschoolsciencebowlpractice.ui;
+package com.sciencebowlhub.scibowlgym.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.jakepolatty.highschoolsciencebowlpractice.R;
-import com.jakepolatty.highschoolsciencebowlpractice.model.Category;
-import com.jakepolatty.highschoolsciencebowlpractice.model.Question;
-import com.jakepolatty.highschoolsciencebowlpractice.model.QuestionJSONParser;
-import com.jakepolatty.highschoolsciencebowlpractice.model.QuestionType;
-import com.jakepolatty.highschoolsciencebowlpractice.model.QuizModeStats;
+import com.sciencebowlhub.scibowlgym.R;
+import com.sciencebowlhub.scibowlgym.model.Category;
+import com.sciencebowlhub.scibowlgym.model.Question;
+import com.sciencebowlhub.scibowlgym.model.QuestionJSONParser;
+import com.sciencebowlhub.scibowlgym.model.QuestionType;
+import com.sciencebowlhub.scibowlgym.model.QuizModeStats;
+
+import java.util.Calendar;
+
+import katex.hourglass.in.mathlib.MathView;
 
 public class QuizModePage extends AppCompatActivity {
     // Question text fields
     private TextView roundSetNumLabel;
     private TextView questionNumLabel;
     private TextView categoryTypeLabel;
-    private TextView questionTextLabel;
+    private MathView questionTextLabel;
 
     // Option buttons
-    private Button optionWButton;
-    private Button optionXButton;
-    private Button optionYButton;
-    private Button optionZButton;
+    private MathView optionWButton;
+    private MathView optionXButton;
+    private MathView optionYButton;
+    private MathView optionZButton;
 
     // Toolbar Buttons
     private Button menuButton;
@@ -46,6 +52,7 @@ public class QuizModePage extends AppCompatActivity {
     private CountDownTimer timer;
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,35 +76,74 @@ public class QuizModePage extends AppCompatActivity {
             seconds = bonusTime;
         }
 
-        roundSetNumLabel = (TextView) findViewById(R.id.roundSetNumLabel);
+        roundSetNumLabel = findViewById(R.id.roundSetNumLabel);
         roundSetNumLabel.setText("Question Set " + question.getSetNumber() + " Round " + question.getRoundNumber());
 
-        questionNumLabel = (TextView) findViewById(R.id.questionNumLabel);
+        questionNumLabel = findViewById(R.id.questionNumLabel);
         questionNumLabel.setText("Question " + question.getQuestionNumber() + " " + question.getQuestionType().toString());
 
-        categoryTypeLabel = (TextView) findViewById(R.id.categoryTypeLabel);
+        categoryTypeLabel = findViewById(R.id.categoryTypeLabel);
         categoryTypeLabel.setText(question.getCategory().toString() + " " + question.getAnswerType().toString());
 
-        questionTextLabel = (TextView) findViewById(R.id.questionTextLabel);
-        questionTextLabel.setText(question.getQuestionText());
+        questionTextLabel = findViewById(R.id.questionTextLabel);
+        questionTextLabel.setDisplayText(question.getQuestionText());
 
-        timerLabel = (TextView) findViewById(R.id.timerLabel);
+        timerLabel = findViewById(R.id.timerLabel);
         timerLabel.setText(seconds + " Seconds Left");
 
-        optionWButton = (Button) findViewById(R.id.optionWButton);
-        optionWButton.setText(question.getAnswerChoices()[0]);
+        optionWButton = findViewById(R.id.optionWButton);
+        optionWButton.setDisplayText(question.getAnswerChoices()[0]);
+        optionWButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectOption(v, 'W');
+            }
+        });
 
-        optionXButton = (Button) findViewById(R.id.optionXButton);
-        optionXButton.setText(question.getAnswerChoices()[1]);
+        optionXButton = findViewById(R.id.optionXButton);
+        optionXButton.setDisplayText(question.getAnswerChoices()[1]);
+        optionXButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectOption(v, 'X');
+            }
+        });
 
-        optionYButton = (Button) findViewById(R.id.optionYButton);
-        optionYButton.setText(question.getAnswerChoices()[2]);
+        optionYButton = findViewById(R.id.optionYButton);
+        optionYButton.setDisplayText(question.getAnswerChoices()[2]);
+        optionYButton.setOnTouchListener(new View.OnTouchListener() {
+            private static final int MAX_CLICK_DURATION = 200;
+            private long startClickTime;
 
-        optionZButton = (Button) findViewById(R.id.optionZButton);
-        optionZButton.setText(question.getAnswerChoices()[3]);
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        startClickTime = Calendar.getInstance().getTimeInMillis();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                        if (clickDuration < MAX_CLICK_DURATION) {
+                            selectOption(v, 'Y');
+                        }
+                    }
+                }
+                return true;
+            }
+        });
 
-        menuButton = (Button) findViewById(R.id.menuButton);
-        nextButton = (Button) findViewById(R.id.nextButton);
+        optionZButton = findViewById(R.id.optionZButton);
+        optionZButton.setDisplayText(question.getAnswerChoices()[3]);
+        optionZButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectOption(v, 'Z');
+            }
+        });
+
+        menuButton = findViewById(R.id.menuButton);
+        nextButton = findViewById(R.id.nextButton);
 
         timer = new CountDownTimer(seconds * 1000, 100) {
             @Override
@@ -125,13 +171,13 @@ public class QuizModePage extends AppCompatActivity {
     private void makeCorrectAnswerButtonGreen() {
         char answerLetter = question.getAnswerLetter();
         if (answerLetter == 'W') {
-            optionWButton.setBackgroundResource(R.drawable.quizoptionbuttoncorrect);
+            optionWButton.setViewBackgroundColor(R.drawable.quizoptionbuttoncorrect);
         } else if (answerLetter == 'X') {
-            optionXButton.setBackgroundResource(R.drawable.quizoptionbuttoncorrect);
+            optionXButton.setViewBackgroundColor(R.drawable.quizoptionbuttoncorrect);
         } else if (answerLetter == 'Y') {
-            optionYButton.setBackgroundResource(R.drawable.quizoptionbuttoncorrect);
+            optionYButton.setViewBackgroundColor(R.drawable.quizoptionbuttoncorrect);
         } else if (answerLetter == 'Z') {
-            optionZButton.setBackgroundResource(R.drawable.quizoptionbuttoncorrect);
+            optionZButton.setViewBackgroundColor(R.drawable.quizoptionbuttoncorrect);
         }
     }
 
@@ -154,42 +200,12 @@ public class QuizModePage extends AppCompatActivity {
         // Prevents user from moving back through questions
     }
 
-    public void selectOptionW(View view) {
+    public void selectOption(View view, char A) {
         optionSelected();
-        if (question.getAnswerLetter() == 'W') {
+        if (question.getAnswerLetter() == A) {
             stats.addCorrect();
         } else {
-            optionWButton.setBackgroundResource(R.drawable.quizoptionbuttonwrong);
-            stats.addIncorrect();
-        }
-    }
-
-    public void selectOptionX(View view) {
-        optionSelected();
-        if (question.getAnswerLetter() == 'X') {
-            stats.addCorrect();
-        } else {
-            optionXButton.setBackgroundResource(R.drawable.quizoptionbuttonwrong);
-            stats.addIncorrect();
-        }
-    }
-
-    public void selectOptionY(View view) {
-        optionSelected();
-        if (question.getAnswerLetter() == 'Y') {
-            stats.addCorrect();
-        } else {
-            optionYButton.setBackgroundResource(R.drawable.quizoptionbuttonwrong);
-            stats.addIncorrect();
-        }
-    }
-
-    public void selectOptionZ(View view) {
-        optionSelected();
-        if (question.getAnswerLetter() == 'Z') {
-            stats.addCorrect();
-        } else {
-            optionZButton.setBackgroundResource(R.drawable.quizoptionbuttonwrong);
+            optionWButton.setViewBackgroundColor(R.drawable.quizoptionbuttonwrong);
             stats.addIncorrect();
         }
     }

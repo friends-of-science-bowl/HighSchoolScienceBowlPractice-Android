@@ -4,7 +4,7 @@
 
 This is an Android app designed to help students prepare for Science Bowl competitions. This app is not sponsored by the National Science Bowl®, U.S. Department of Energy or the U.S. Government.
 
-You can view the app on the Google Play Store [here](https://play.google.com/store/apps/details?id=com.jakepolatty.highschoolsciencebowlpractice).
+You can view the app on the Google Play Store [here](https://play.google.com/store/apps/details?id=practice).
 
 Questions or concerns about the app can be raised using the "Issues" button at the top of the page.
 

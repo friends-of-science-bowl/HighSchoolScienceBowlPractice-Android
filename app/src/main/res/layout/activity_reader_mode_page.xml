@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context="com.jakepolatty.highschoolsciencebowlpractice.ui.ReaderModePage">
+    tools:context="com.sciencebowlhub.scibowlgym.ui.ReaderModePage">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textColor="@color/metadataLabelText"/>
 
             <TextView
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textColor="@color/metadataLabelText"/>
 
             <TextView
@@ -152,10 +152,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:textColor="@color/metadataLabelText"/>
 
-            <TextView
+            <katex.hourglass.in.mathlib.MathView
                 android:id="@+id/questionTextLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,10 +164,10 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                android:textSize="17sp"
-                android:textColor="@color/white100"/>
+                app:setTextSize="12sp"
+                app:setTextColor="@color/white100"/>
 
-            <TextView
+            <katex.hourglass.in.mathlib.MathView
                 android:id="@+id/answerOptionsLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -176,10 +176,10 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="30dp"
-                android:textSize="16sp"
-                android:textColor="@color/studyAnswerOptionsText"/>
+                app:setTextSize="12sp"
+                app:setTextColor="@color/studyAnswerOptionsText"/>
 
-            <TextView
+            <katex.hourglass.in.mathlib.MathView
                 android:id="@+id/answerLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -188,8 +188,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="20dp"
-                android:textColor="@color/readerAnswerText"
-                android:textSize="16sp"
+                app:setTextSize="12sp"
+                app:setTextColor="@color/readerAnswerText"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textAlignment="center"/>
 
@@ -211,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-32dp"
                 android:layout_marginBottom="30dp"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textColor="@color/timerLabelText"
                 android:visibility="invisible"/>
         </LinearLayout>

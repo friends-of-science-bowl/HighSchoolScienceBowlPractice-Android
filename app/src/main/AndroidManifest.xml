@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.jakepolatty.highschoolsciencebowlpractice"
+<manifest package="com.sciencebowlhub.scibowlgym"
           xmlns:android="http://schemas.android.com/apk/res/android">
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true">
         <activity
-            android:name=".ui.HomePage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.HomePage"
             android:theme="@style/LaunchTheme"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -18,41 +17,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.QuizModeSettingsPage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.QuizModeSettingsPage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.QuizModePage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.QuizModePage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.StudyModeSettingsPage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.StudyModeSettingsPage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.StudyModePage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.StudyModePage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.ReaderModeSettingsPage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.ReaderModeSettingsPage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.ReaderModePage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.ReaderModePage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.AboutPage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.AboutPage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.HelpPage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.HelpPage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.QuizModeStatsPage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.QuizModeStatsPage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
     </application>
-
 </manifest>

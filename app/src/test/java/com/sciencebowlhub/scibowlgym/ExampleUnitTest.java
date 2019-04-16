@@ -1,4 +1,4 @@
-package com.jakepolatty.highschoolsciencebowlpractice;
+package com.sciencebowlhub.scibowlgym;
 
 import org.junit.Test;
 
