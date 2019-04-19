@@ -88,16 +88,19 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/creator_label"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp"
-                android:textColor="@color/metadataLabelText"
-                android:textSize="15sp"/>
+              android:id="@+id/creatorLabel"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="20dp"
+              android:layout_marginLeft="20dp"
+              android:layout_marginTop="10dp"
+              android:layout_marginEnd="20dp"
+              android:layout_marginRight="20dp"
+              android:linksClickable="true"
+              android:text="@string/creator_label"
+              android:textColor="@color/metadataLabelText"
+              android:textColorLink="@color/buttonTransGreenPressed"
+              android:textSize="15sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
