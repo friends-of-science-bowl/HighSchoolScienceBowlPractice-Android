@@ -33,11 +33,11 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.sciencebowlhub.scibowlgym.ui.ReaderModeSettingsPage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.ModeratorModeSettingsPage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.sciencebowlhub.scibowlgym.ui.ReaderModePage"
+            android:name="com.sciencebowlhub.scibowlgym.ui.ModeratorModePage"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
         <activity

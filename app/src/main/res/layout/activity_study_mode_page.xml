@@ -115,7 +115,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="30dp"
-                app:setTextSize="12sp"
+                android:linksClickable="true"
+                android:textColorLink="@color/buttonTransGreenPressed"
+                app:setTextSize="11sp"
                 app:setTextColor="@color/white100"/>
 
             <katex.hourglass.in.mathlib.MathView
@@ -127,7 +129,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="30dp"
-                app:setTextSize="12sp"
+                android:linksClickable="true"
+                android:textColorLink="@color/buttonTransGreenPressed"
+                app:setTextSize="11sp"
                 app:setTextColor="@color/studyAnswerOptionsText"/>
 
             <Button
@@ -153,7 +157,9 @@
                 android:layout_marginTop="-40dp"
                 android:layout_marginBottom="30dp"
                 android:layout_gravity="center"
-                app:setTextSize="12sp"
+                android:linksClickable="true"
+                android:textColorLink="@color/buttonTransGreenPressed"
+                app:setTextSize="11sp"
                 app:setTextColor="@color/timerLabelText"
                 android:visibility="invisible"/>
         </LinearLayout>

@@ -15,7 +15,7 @@ import android.widget.ToggleButton;
 import com.sciencebowlhub.scibowlgym.R;
 import com.sciencebowlhub.scibowlgym.model.QuestionJSONParser;
 
-public class ReaderModeSettingsPage extends AppCompatActivity {
+public class ModeratorModeSettingsPage extends AppCompatActivity {
     private static final String[] setOptions = {"Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8", "Set 9"};
     private static final String[] roundOptions = {"Round 1", "Round 2", "Round 3", "Round 4", "Round 5", "Round 6", "Round 7", "Round 8", "Round 9", "Round 10", "Round 11", "Round 12", "Round 13", "Round 14", "Round 15", "Round 16", "Round 17"};
 
@@ -33,7 +33,7 @@ public class ReaderModeSettingsPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reader_mode_settings_page);
+        setContentView(R.layout.activity_moderator_mode_settings_page);
 
         setNumPicker = (NumberPicker) findViewById(R.id.setNumPicker);
         setNumPicker.setMinValue(0);
@@ -57,7 +57,7 @@ public class ReaderModeSettingsPage extends AppCompatActivity {
 
     public void returnMainMenu(View view) {
         menuButton.setTextColor(Color.parseColor("#94cffe"));
-        Intent intent = new Intent(ReaderModeSettingsPage.this, HomePage.class);
+        Intent intent = new Intent(ModeratorModeSettingsPage.this, HomePage.class);
         startActivity(intent);
     }
 
@@ -66,7 +66,7 @@ public class ReaderModeSettingsPage extends AppCompatActivity {
         int roundNum = roundNumPicker.getValue() + 1;
         boolean isTimedRound = roundTimerButton.isChecked();
         if ((roundNum == 16 || roundNum == 17) && (setNum == 5 || setNum == 6)) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(ReaderModeSettingsPage.this, R.style.alertStyle);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(ModeratorModeSettingsPage.this, R.style.alertStyle);
             builder.setTitle("Invalid Set");
             builder.setMessage("The chosen question set is not available.");
             builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
@@ -77,7 +77,7 @@ public class ReaderModeSettingsPage extends AppCompatActivity {
             });
             builder.show();
         } else {
-            Intent intent = new Intent(ReaderModeSettingsPage.this, ReaderModePage.class);
+            Intent intent = new Intent(ModeratorModeSettingsPage.this, ModeratorModePage.class);
 
             QuestionJSONParser.getInstance().saveQuestionSetForSetAndRound(setNum, roundNum);
 

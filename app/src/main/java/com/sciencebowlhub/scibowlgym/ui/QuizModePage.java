@@ -51,6 +51,29 @@ public class QuizModePage extends AppCompatActivity {
     private Question question;
     private CountDownTimer timer;
 
+    abstract class TouchListener implements View.OnTouchListener {
+        private static final int MAX_CLICK_DURATION = 200;
+        private long startClickTime;
+
+        abstract public void select(View v);
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    startClickTime = Calendar.getInstance().getTimeInMillis();
+                    break;
+                }
+                case MotionEvent.ACTION_UP: {
+                    long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                    if (clickDuration < MAX_CLICK_DURATION) {
+                        select(v);
+                    }
+                }
+            }
+            return true;
+        }
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -93,52 +116,37 @@ public class QuizModePage extends AppCompatActivity {
 
         optionWButton = findViewById(R.id.optionWButton);
         optionWButton.setDisplayText(question.getAnswerChoices()[0]);
-        optionWButton.setOnClickListener(new View.OnClickListener() {
+        optionWButton.setOnTouchListener(new TouchListener() {
             @Override
-            public void onClick(View v) {
-                selectOption(v, 'W');
+            public void select(View v) {
+                selectOption(v, 'W', optionWButton);
             }
         });
 
         optionXButton = findViewById(R.id.optionXButton);
         optionXButton.setDisplayText(question.getAnswerChoices()[1]);
-        optionXButton.setOnClickListener(new View.OnClickListener() {
+        optionXButton.setOnTouchListener(new TouchListener() {
             @Override
-            public void onClick(View v) {
-                selectOption(v, 'X');
+            public void select(View v) {
+                selectOption(v, 'X', optionXButton);
             }
         });
 
         optionYButton = findViewById(R.id.optionYButton);
         optionYButton.setDisplayText(question.getAnswerChoices()[2]);
-        optionYButton.setOnTouchListener(new View.OnTouchListener() {
-            private static final int MAX_CLICK_DURATION = 200;
-            private long startClickTime;
-
+        optionYButton.setOnTouchListener(new TouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        startClickTime = Calendar.getInstance().getTimeInMillis();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP: {
-                        long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
-                        if (clickDuration < MAX_CLICK_DURATION) {
-                            selectOption(v, 'Y');
-                        }
-                    }
-                }
-                return true;
+            public void select(View v) {
+                selectOption(v, 'Y', optionYButton);
             }
         });
 
         optionZButton = findViewById(R.id.optionZButton);
         optionZButton.setDisplayText(question.getAnswerChoices()[3]);
-        optionZButton.setOnClickListener(new View.OnClickListener() {
+        optionZButton.setOnTouchListener(new TouchListener() {
             @Override
-            public void onClick(View v) {
-                selectOption(v, 'Z');
+            public void select(View v) {
+                selectOption(v, 'Z', optionZButton);
             }
         });
 
@@ -171,13 +179,13 @@ public class QuizModePage extends AppCompatActivity {
     private void makeCorrectAnswerButtonGreen() {
         char answerLetter = question.getAnswerLetter();
         if (answerLetter == 'W') {
-            optionWButton.setViewBackgroundColor(R.drawable.quizoptionbuttoncorrect);
+            optionWButton.setBackgroundResource(R.drawable.quizoptionbuttoncorrect);
         } else if (answerLetter == 'X') {
-            optionXButton.setViewBackgroundColor(R.drawable.quizoptionbuttoncorrect);
+            optionXButton.setBackgroundResource(R.drawable.quizoptionbuttoncorrect);
         } else if (answerLetter == 'Y') {
-            optionYButton.setViewBackgroundColor(R.drawable.quizoptionbuttoncorrect);
+            optionYButton.setBackgroundResource(R.drawable.quizoptionbuttoncorrect);
         } else if (answerLetter == 'Z') {
-            optionZButton.setViewBackgroundColor(R.drawable.quizoptionbuttoncorrect);
+            optionZButton.setBackgroundResource(R.drawable.quizoptionbuttoncorrect);
         }
     }
 
@@ -200,12 +208,12 @@ public class QuizModePage extends AppCompatActivity {
         // Prevents user from moving back through questions
     }
 
-    public void selectOption(View view, char A) {
+    private void selectOption(View view, char A, MathView button) {
         optionSelected();
         if (question.getAnswerLetter() == A) {
             stats.addCorrect();
         } else {
-            optionWButton.setViewBackgroundColor(R.drawable.quizoptionbuttonwrong);
+            button.setBackgroundResource(R.drawable.quizoptionbuttonwrong);
             stats.addIncorrect();
         }
     }

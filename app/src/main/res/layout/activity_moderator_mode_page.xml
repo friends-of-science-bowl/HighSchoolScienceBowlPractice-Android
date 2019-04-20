@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context="com.sciencebowlhub.scibowlgym.ui.ReaderModePage">
+    tools:context="com.sciencebowlhub.scibowlgym.ui.ModeratorModePage">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -29,7 +29,7 @@
         android:layout_alignBottom="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:text="@string/reader_mode"
+        android:text="@string/moderator_mode"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"/>
@@ -164,7 +164,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
-                app:setTextSize="12sp"
+                android:linksClickable="true"
+                android:textColorLink="@color/buttonTransGreenPressed"
+                app:setTextSize="11sp"
                 app:setTextColor="@color/white100"/>
 
             <katex.hourglass.in.mathlib.MathView
@@ -176,7 +178,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="30dp"
-                app:setTextSize="12sp"
+                android:linksClickable="true"
+                android:textColorLink="@color/buttonTransGreenPressed"
+                app:setTextSize="11sp"
                 app:setTextColor="@color/studyAnswerOptionsText"/>
 
             <katex.hourglass.in.mathlib.MathView
@@ -188,7 +192,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="20dp"
-                app:setTextSize="12sp"
+                android:linksClickable="true"
+                android:textColorLink="@color/buttonTransGreenPressed"
+                app:setTextSize="11sp"
                 app:setTextColor="@color/readerAnswerText"
                 android:textSize="18sp"
                 android:textStyle="bold"

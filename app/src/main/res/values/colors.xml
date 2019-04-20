@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backgroundColor">#f0f0f0</color>
+    <color name="backgroundColor">#0093ff</color>
     <color name="appBarColor">#4aa8fe</color>
     <color name="statusBarColor">#4aa8fe</color>
     <color name="buttonTransGrey">#0a58b1</color>
@@ -8,7 +8,7 @@
     <color name="buttonTransGreyToggled">#002a54</color>
     <color name="buttonTransGreen">#19c18e</color>
     <color name="buttonTransGreenPressed">#26d39e</color>
-    <color name="white100">#0f0f0f</color>
+    <color name="white100">#ffffff</color>
     <color name="metadataLabelText">#94cffe</color>
     <color name="timerLabelText">#8bcaff</color>
     <color name="quizButtonCorrect">#19c06b</color>

@@ -19,7 +19,7 @@ import com.sciencebowlhub.scibowlgym.model.QuestionType;
 
 import katex.hourglass.in.mathlib.MathView;
 
-public class ReaderModePage extends AppCompatActivity {
+public class ModeratorModePage extends AppCompatActivity {
     // Question text fields
     private TextView roundSetNumLabel;
     private TextView questionNumLabel;
@@ -56,7 +56,7 @@ public class ReaderModePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reader_mode_page);
+        setContentView(R.layout.activity_moderator_mode_page);
 
         Intent intent = getIntent();
 
@@ -118,7 +118,7 @@ public class ReaderModePage extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     nextButton.setTextColor(Color.parseColor("#94cffe"));
-                    Intent intent = new Intent(ReaderModePage.this, ReaderModeSettingsPage.class);
+                    Intent intent = new Intent(ModeratorModePage.this, ModeratorModeSettingsPage.class);
                     startActivity(intent);
                 }
             });
@@ -226,7 +226,7 @@ public class ReaderModePage extends AppCompatActivity {
     public void returnMainMenu(View view) {
         questionTimer.cancel();
         menuButton.setTextColor(Color.parseColor("#94cffe"));
-        Intent intent = new Intent(ReaderModePage.this, HomePage.class);
+        Intent intent = new Intent(ModeratorModePage.this, HomePage.class);
         startActivity(intent);
     }
 
@@ -234,7 +234,7 @@ public class ReaderModePage extends AppCompatActivity {
         questionTimer.cancel();
         timerLabel.setVisibility(View.INVISIBLE);
         nextButton.setTextColor(Color.parseColor("#94cffe"));
-        Intent intent = new Intent(ReaderModePage.this, ReaderModePage.class);
+        Intent intent = new Intent(ModeratorModePage.this, ModeratorModePage.class);
 
         intent.putExtra("TOSSUP_TIME", tossupTime);
         intent.putExtra("BONUS_TIME", bonusTime);

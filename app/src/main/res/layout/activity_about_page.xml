@@ -97,9 +97,9 @@
               android:layout_marginEnd="20dp"
               android:layout_marginRight="20dp"
               android:linksClickable="true"
+              android:textColorLink="@color/buttonTransGreenPressed"
               android:text="@string/creator_label"
               android:textColor="@color/metadataLabelText"
-              android:textColorLink="@color/buttonTransGreenPressed"
               android:textSize="15sp"/>
 
             <TextView
