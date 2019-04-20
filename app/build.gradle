@@ -6,8 +6,8 @@ android {
         applicationId "com.sciencebowlhub.scibowlgym"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 5
-        versionName "1.2.1"
+        versionCode 1
+        versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
