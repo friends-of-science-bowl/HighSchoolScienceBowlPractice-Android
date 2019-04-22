@@ -1,6 +1,8 @@
 package com.sciencebowlhub.scibowlgym.model;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.util.SparseArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,10 +11,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumMap;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -34,10 +37,11 @@ public class QuestionJSONParser {
 
     private Random rand;
 
-    private Question[] parsedQuestions;
-    private Question[] currentReaderSet;
+    private ArrayList<Question> parsedQuestions;
+    private ArrayList<Question> currentReaderSet;
 
-    private EnumMap<Category, List<Question>> categoryQuestions;
+    private EnumMap<Category, ArrayList<Question>> categoryQuestions;
+    private SparseArray<SparseArray<ArrayList<Question>>> setRoundQuestions;
 
     // Initialization from json
 
@@ -53,54 +57,57 @@ public class QuestionJSONParser {
             e.printStackTrace();
         }
 
-        ArrayList<Question> tempQuestionList = new ArrayList<Question>();
+        parsedQuestions = new ArrayList<>();
 
-        categoryQuestions = new EnumMap<Category, List<Question>>(Category.class);
+        categoryQuestions = new EnumMap<>(Category.class);
         for (Category cat : Category.values()) {
             categoryQuestions.put(cat, new ArrayList<Question>());
         }
+
+        setRoundQuestions = new SparseArray<>();
 
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 Question question = new Question(jsonObject);
+                parsedQuestions.add(question);
                 categoryQuestions.get(question.getCategory()).add(question);
-                tempQuestionList.add(question);
+                if (setRoundQuestions.get(question.getSetNumber()) == null) {
+                    setRoundQuestions.put(question.getSetNumber(), new SparseArray<ArrayList<Question>>());
+                }
+                SparseArray<ArrayList<Question>> roundQuestions = setRoundQuestions.get(question.getSetNumber());
+                if (roundQuestions.get(question.getRoundNumber()) == null) {
+                    roundQuestions.put(question.getRoundNumber(), new ArrayList<Question>());
+                }
+                roundQuestions.get(question.getRoundNumber()).add(question);
             } catch (JSONException e) {
                 // If something is wrong with the initialization, the element won't be added
                 continue;
             }
         }
 
-        parsedQuestions = tempQuestionList.toArray(new Question[0]);
         rand = new Random();
     }
 
     // Random question access methods
 
-    private Question parseQuestionForIndex(int i) {
-        return parsedQuestions[i];
+    private Question getRandomQuestion(@NonNull ArrayList<Question> lst) {
+        int randomIndex = rand.nextInt(lst.size());
+        return lst.get(randomIndex);
     }
 
     public Question getRandomQuestion() {
-        int randomIndex = rand.nextInt(parsedQuestions.length);
-        return parseQuestionForIndex(randomIndex);
+        return getRandomQuestion(parsedQuestions);
     }
 
-    public Question getQuestionForCategory(Category category) {
-        while (true) {
-            Question question = getRandomQuestion();
-            if (question.getCategory() == category) {
-                return question;
-            }
-        }
-        // Will never time out because of limited enum values
+    public Question getQuestionForCategory(@NonNull Category category) {
+        return getRandomQuestion(categoryQuestions.get(category));
     }
 
     public Question getQuestionForCategoryAndRound(Category category, int round) {
         while (true) {
-            Question question = getRandomQuestion();
-            if (question.getCategory() == category && question.getRoundNumber() == round) {
+            Question question = getQuestionForCategory(category);
+            if (question.getRoundNumber() == round) {
                 return question;
             }
         }
@@ -138,8 +145,8 @@ public class QuestionJSONParser {
 
     public Question getMCQuestionForCategory(Category category) {
         while (true) {
-            Question question = getMCQuestion();
-            if (question.getCategory() == category) {
+            Question question = getQuestionForCategory(category);
+            if (question.getAnswerType() == AnswerType.MultipleChoice) {
                 return question;
             }
         }
@@ -149,37 +156,34 @@ public class QuestionJSONParser {
     // Full question set methods
 
     public void saveQuestionSetForSetAndRound(int set, int round) {
-        ArrayList<Question> tempList = new ArrayList<Question>();
+        currentReaderSet = new ArrayList<>();
         for (Question question : parsedQuestions) {
             if (question.getSetNumber() == set && question.getRoundNumber() == round) {
-                tempList.add(question);
+                currentReaderSet.add(question);
             }
         }
-        Question[] qArray = tempList.toArray(new Question[0]);
-        Arrays.sort(qArray, new Comparator<Question>() {
+        Collections.sort(currentReaderSet, new Comparator<Question>() {
             @Override
             public int compare(Question q1, Question q2) {
-                if (q1.getQuestionNumber() < q2.getQuestionNumber()) {
-                    return -1;
-                } else if (q1.getQuestionNumber() == q2.getQuestionNumber()) {
+                if (q1.getQuestionNumber() == q2.getQuestionNumber()) {
+                    if (q1.getQuestionType() == q2.getQuestionType()) {
+                        return 0;
+                    }
                     if (q1.getQuestionType() == QuestionType.Tossup) {
                         return -1;
-                    } else {
-                        return 1;
                     }
-                } else {
                     return 1;
                 }
+                return q1.getQuestionNumber() - q2.getQuestionNumber();
             }
         });
-        currentReaderSet = qArray;
     }
 
     public Question getCurrentReaderQuestion(int index) {
-        return currentReaderSet[index];
+        return currentReaderSet.get(index);
     }
 
     public int getCurrentReaderSetLength() {
-        return currentReaderSet.length;
+        return currentReaderSet.size();
     }
 }
