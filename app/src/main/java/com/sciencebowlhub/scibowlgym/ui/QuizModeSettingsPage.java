@@ -17,7 +17,7 @@ public class QuizModeSettingsPage extends AppCompatActivity {
 
     // Topic option toggle buttons
     private ToggleButton biologyButton;
-    private ToggleButton chemistryButton;
+    private ToggleButton generalScienceButton;
     private ToggleButton earthAndSpaceButton;
     private ToggleButton energyButton;
     private ToggleButton mathButton;
@@ -35,7 +35,7 @@ public class QuizModeSettingsPage extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_mode_settings);
 
         biologyButton = (ToggleButton) findViewById(R.id.biologyButton);
-        chemistryButton = (ToggleButton) findViewById(R.id.chemistryButton);
+        generalScienceButton = (ToggleButton) findViewById(R.id.generalScienceButton);
         earthAndSpaceButton = (ToggleButton) findViewById(R.id.earthAndSpaceButton);
         energyButton = (ToggleButton) findViewById(R.id.energyButton);
         mathButton = (ToggleButton) findViewById(R.id.mathButton);
@@ -100,8 +100,8 @@ public class QuizModeSettingsPage extends AppCompatActivity {
     private void toggleOff() {
         biologyButton.setChecked(false);
         biologyButton.setSelected(false);
-        chemistryButton.setChecked(false);
-        chemistryButton.setSelected(false);
+        generalScienceButton.setChecked(false);
+        generalScienceButton.setSelected(false);
         earthAndSpaceButton.setChecked(false);
         earthAndSpaceButton.setSelected(false);
         energyButton.setChecked(false);
@@ -121,11 +121,11 @@ public class QuizModeSettingsPage extends AppCompatActivity {
         biologyButton.setSelected(true);
     }
 
-    public void selectChemistry(View view) {
+    public void selectGeneralScience(View view) {
         toggleOff();
-        selectedCategory = "Chemistry";
-        chemistryButton.setChecked(true);
-        chemistryButton.setSelected(true);
+        selectedCategory = "General Science";
+        generalScienceButton.setChecked(true);
+        generalScienceButton.setSelected(true);
     }
 
     public void selectEarthAndSpace(View view) {

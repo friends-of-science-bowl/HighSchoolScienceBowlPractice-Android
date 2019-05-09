@@ -131,13 +131,13 @@
                     android:orientation="vertical">
 
                     <ToggleButton
-                        android:id="@+id/chemistryButton"
+                        android:id="@+id/generalScienceButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/homepagebutton"
-                        android:textOn="@string/chemistry"
-                        android:textOff="@string/chemistry"
-                        android:onClick="selectChemistry"
+                        android:textOn="@string/generalScience"
+                        android:textOff="@string/generalScience"
+                        android:onClick="selectGeneralScience"
                         android:textAllCaps="false"
                         android:width="130dp"
                         android:textColor="@android:color/white"/>
