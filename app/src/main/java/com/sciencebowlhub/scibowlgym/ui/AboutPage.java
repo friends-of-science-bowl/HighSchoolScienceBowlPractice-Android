@@ -12,22 +12,22 @@ import android.widget.TextView;
 import com.sciencebowlhub.scibowlgym.R;
 
 public class AboutPage extends AppCompatActivity {
-    private Button menuButton;
+  private Button menuButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_page);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_about_page);
 
-        menuButton = findViewById(R.id.menuButton);
+    menuButton = findViewById(R.id.menuButton);
 
-        TextView creator = findViewById(R.id.creatorLabel);
-        creator.setMovementMethod(LinkMovementMethod.getInstance());
-    }
+    TextView creator = findViewById(R.id.creatorLabel);
+    creator.setMovementMethod(LinkMovementMethod.getInstance());
+  }
 
-    public void returnMainMenu(View view) {
-        menuButton.setTextColor(Color.parseColor("#94cffe"));
-        Intent intent = new Intent(AboutPage.this, HomePage.class);
-        startActivity(intent);
-    }
+  public void returnMainMenu(View view) {
+    menuButton.setTextColor(Color.parseColor("#94cffe"));
+    Intent intent = new Intent(AboutPage.this, HomePage.class);
+    startActivity(intent);
+  }
 }

@@ -12,124 +12,127 @@ import android.widget.ToggleButton;
 import com.sciencebowlhub.scibowlgym.R;
 
 public class StudyModeSettingsPage extends AppCompatActivity {
-    private static final String[] roundOptions = {"All Rounds", "Round 1", "Round 2", "Round 3", "Round 4", "Round 5", "Round 6", "Round 7", "Round 8", "Round 9", "Round 10", "Round 11", "Round 12", "Round 13", "Round 14", "Round 15", "Round 16", "Round 17"};
+  private static final String[] roundOptions =
+      {"All Rounds", "Round 1", "Round 2", "Round 3", "Round 4", "Round 5", "Round 6", "Round 7",
+          "Round 8", "Round 9", "Round 10", "Round 11", "Round 12", "Round 13", "Round 14",
+          "Round 15", "Round 16", "Round 17"};
 
-    private String selectedCategory = "Random";
+  private String selectedCategory = "Random";
 
-    // Topic option toggle buttons
-    private ToggleButton biologyButton;
-    private ToggleButton generalScienceButton;
-    private ToggleButton earthAndSpaceButton;
-    private ToggleButton energyButton;
-    private ToggleButton mathButton;
-    private ToggleButton physicsButton;
-    private ToggleButton randomButton;
+  // Topic option toggle buttons
+  private ToggleButton biologyButton;
+  private ToggleButton generalScienceButton;
+  private ToggleButton earthAndSpaceButton;
+  private ToggleButton energyButton;
+  private ToggleButton mathButton;
+  private ToggleButton physicsButton;
+  private ToggleButton randomButton;
 
-    private NumberPicker roundNumPicker;
+  private NumberPicker roundNumPicker;
 
-    private Button menuButton;
+  private Button menuButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_study_mode_settings_page);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_study_mode_settings_page);
 
-        biologyButton = (ToggleButton) findViewById(R.id.biologyButton);
-        generalScienceButton = (ToggleButton) findViewById(R.id.generalScienceButton);
-        earthAndSpaceButton = (ToggleButton) findViewById(R.id.earthAndSpaceButton);
-        energyButton = (ToggleButton) findViewById(R.id.energyButton);
-        mathButton = (ToggleButton) findViewById(R.id.mathButton);
-        physicsButton = (ToggleButton) findViewById(R.id.physicsButton);
-        randomButton = (ToggleButton) findViewById(R.id.randomButton);
+    biologyButton = (ToggleButton) findViewById(R.id.biologyButton);
+    generalScienceButton = (ToggleButton) findViewById(R.id.generalScienceButton);
+    earthAndSpaceButton = (ToggleButton) findViewById(R.id.earthAndSpaceButton);
+    energyButton = (ToggleButton) findViewById(R.id.energyButton);
+    mathButton = (ToggleButton) findViewById(R.id.mathButton);
+    physicsButton = (ToggleButton) findViewById(R.id.physicsButton);
+    randomButton = (ToggleButton) findViewById(R.id.randomButton);
 
-        roundNumPicker = (NumberPicker) findViewById(R.id.roundNumPicker);
-        roundNumPicker.setMinValue(0);
-        roundNumPicker.setMaxValue(roundOptions.length-1);
-        roundNumPicker.setWrapSelectorWheel(false);
-        roundNumPicker.setDisplayedValues(roundOptions);
+    roundNumPicker = (NumberPicker) findViewById(R.id.roundNumPicker);
+    roundNumPicker.setMinValue(0);
+    roundNumPicker.setMaxValue(roundOptions.length - 1);
+    roundNumPicker.setWrapSelectorWheel(false);
+    roundNumPicker.setDisplayedValues(roundOptions);
 
-        menuButton = (Button) findViewById(R.id.menuButton);
-    }
+    menuButton = (Button) findViewById(R.id.menuButton);
+  }
 
-    public void startStudyMode(View view) {
-        Intent intent = new Intent(StudyModeSettingsPage.this, StudyModePage.class);
-        intent.putExtra("CATEGORY", selectedCategory);
+  public void startStudyMode(View view) {
+    Intent intent = new Intent(StudyModeSettingsPage.this, StudyModePage.class);
+    intent.putExtra("CATEGORY", selectedCategory);
 
-        int roundNum = roundNumPicker.getValue();
-        intent.putExtra("ROUND", roundNum);
+    int roundNum = roundNumPicker.getValue();
+    intent.putExtra("ROUND", roundNum);
 
-        startActivity(intent);
-    }
+    startActivity(intent);
+  }
 
-    public void returnMainMenu(View view) {
-        menuButton.setTextColor(Color.parseColor("#94cffe"));
-        Intent intent = new Intent(StudyModeSettingsPage.this, HomePage.class);
-        startActivity(intent);
-    }
+  public void returnMainMenu(View view) {
+    menuButton.setTextColor(Color.parseColor("#94cffe"));
+    Intent intent = new Intent(StudyModeSettingsPage.this, HomePage.class);
+    startActivity(intent);
+  }
 
-    private void toggleOff() {
-        biologyButton.setChecked(false);
-        biologyButton.setSelected(false);
-        generalScienceButton.setChecked(false);
-        generalScienceButton.setSelected(false);
-        earthAndSpaceButton.setChecked(false);
-        earthAndSpaceButton.setSelected(false);
-        energyButton.setChecked(false);
-        energyButton.setSelected(false);
-        mathButton.setChecked(false);
-        mathButton.setSelected(false);
-        physicsButton.setChecked(false);
-        physicsButton.setSelected(false);
-        randomButton.setChecked(false);
-        randomButton.setSelected(false);
-    }
+  private void toggleOff() {
+    biologyButton.setChecked(false);
+    biologyButton.setSelected(false);
+    generalScienceButton.setChecked(false);
+    generalScienceButton.setSelected(false);
+    earthAndSpaceButton.setChecked(false);
+    earthAndSpaceButton.setSelected(false);
+    energyButton.setChecked(false);
+    energyButton.setSelected(false);
+    mathButton.setChecked(false);
+    mathButton.setSelected(false);
+    physicsButton.setChecked(false);
+    physicsButton.setSelected(false);
+    randomButton.setChecked(false);
+    randomButton.setSelected(false);
+  }
 
-    public void selectBiology(View view) {
-        toggleOff();
-        selectedCategory = "Biology";
-        biologyButton.setChecked(true);
-        biologyButton.setSelected(true);
-    }
+  public void selectBiology(View view) {
+    toggleOff();
+    selectedCategory = "Biology";
+    biologyButton.setChecked(true);
+    biologyButton.setSelected(true);
+  }
 
-    public void selectGeneralScience(View view) {
-        toggleOff();
-        selectedCategory = "General Science";
-        generalScienceButton.setChecked(true);
-        generalScienceButton.setSelected(true);
-    }
+  public void selectGeneralScience(View view) {
+    toggleOff();
+    selectedCategory = "General Science";
+    generalScienceButton.setChecked(true);
+    generalScienceButton.setSelected(true);
+  }
 
-    public void selectEarthAndSpace(View view) {
-        toggleOff();
-        selectedCategory = "Earth and Space";
-        earthAndSpaceButton.setChecked(true);
-        earthAndSpaceButton.setSelected(true);
-    }
+  public void selectEarthAndSpace(View view) {
+    toggleOff();
+    selectedCategory = "Earth and Space";
+    earthAndSpaceButton.setChecked(true);
+    earthAndSpaceButton.setSelected(true);
+  }
 
-    public void selectEnergy(View view) {
-        toggleOff();
-        selectedCategory = "Energy";
-        energyButton.setChecked(true);
-        energyButton.setSelected(true);
-    }
+  public void selectEnergy(View view) {
+    toggleOff();
+    selectedCategory = "Energy";
+    energyButton.setChecked(true);
+    energyButton.setSelected(true);
+  }
 
-    public void selectMath(View view) {
-        toggleOff();
-        selectedCategory = "Math";
-        mathButton.setChecked(true);
-        mathButton.setSelected(true);
-    }
+  public void selectMath(View view) {
+    toggleOff();
+    selectedCategory = "Math";
+    mathButton.setChecked(true);
+    mathButton.setSelected(true);
+  }
 
-    public void selectPhysics(View view) {
-        toggleOff();
-        selectedCategory = "Physics";
-        physicsButton.setChecked(true);
-        physicsButton.setSelected(true);
-    }
+  public void selectPhysics(View view) {
+    toggleOff();
+    selectedCategory = "Physics";
+    physicsButton.setChecked(true);
+    physicsButton.setSelected(true);
+  }
 
-    public void selectRandom(View view) {
-        toggleOff();
-        selectedCategory = "Random";
-        randomButton.setChecked(true);
-        randomButton.setSelected(true);
-    }
+  public void selectRandom(View view) {
+    toggleOff();
+    selectedCategory = "Random";
+    randomButton.setChecked(true);
+    randomButton.setSelected(true);
+  }
 }

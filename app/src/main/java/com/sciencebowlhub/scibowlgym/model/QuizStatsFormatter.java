@@ -11,14 +11,15 @@ import java.text.DecimalFormat;
  */
 
 public class QuizStatsFormatter implements IValueFormatter {
-    private DecimalFormat mFormat;
+  private DecimalFormat mFormat;
 
-    public QuizStatsFormatter() {
-        mFormat = new DecimalFormat("###,###,##0");
-    }
+  public QuizStatsFormatter() {
+    mFormat = new DecimalFormat("###,###,##0");
+  }
 
-    @Override
-    public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-        return mFormat.format(value);
-    }
+  @Override
+  public String getFormattedValue(float value, Entry entry, int dataSetIndex,
+      ViewPortHandler viewPortHandler) {
+    return mFormat.format(value);
+  }
 }

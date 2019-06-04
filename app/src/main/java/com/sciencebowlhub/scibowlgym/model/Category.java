@@ -5,22 +5,22 @@ package com.sciencebowlhub.scibowlgym.model;
  */
 
 public enum Category {
-    Biology("Biology"),
-    Chemistry("Chemistry"),
-    EarthAndSpace("Earth and Space"),
-    Energy("Energy"),
-    Mathematics("Mathematics"),
-    Physics("Physics"),
-    GeneralScience("General Science"),
-    ComputerScience("Computer Science");
+  Biology("Biology"),
+  Chemistry("Chemistry"),
+  EarthAndSpace("Earth and Space"),
+  Energy("Energy"),
+  Mathematics("Mathematics"),
+  Physics("Physics"),
+  GeneralScience("General Science"),
+  ComputerScience("Computer Science");
 
-    private final String displayName;
+  private final String displayName;
 
-    Category(String s) {
-        displayName = s;
-    }
+  Category(String s) {
+    displayName = s;
+  }
 
-    public String toString() {
-        return this.displayName;
-    }
+  public String toString() {
+    return this.displayName;
+  }
 }

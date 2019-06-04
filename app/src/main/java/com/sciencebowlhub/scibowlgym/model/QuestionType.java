@@ -5,16 +5,16 @@ package com.sciencebowlhub.scibowlgym.model;
  */
 
 public enum QuestionType {
-    Tossup("Tossup"),
-    Bonus("Bonus");
+  Tossup("Tossup"),
+  Bonus("Bonus");
 
-    private final String displayName;
+  private final String displayName;
 
-    QuestionType(String s) {
-        displayName = s;
-    }
+  QuestionType(String s) {
+    displayName = s;
+  }
 
-    public String toString() {
-        return this.displayName;
-    }
+  public String toString() {
+    return this.displayName;
+  }
 }

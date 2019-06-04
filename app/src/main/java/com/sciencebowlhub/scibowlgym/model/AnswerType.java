@@ -5,16 +5,16 @@ package com.sciencebowlhub.scibowlgym.model;
  */
 
 public enum AnswerType {
-    MultipleChoice("Multiple Choice"),
-    ShortAnswer("Short Answer");
+  MultipleChoice("Multiple Choice"),
+  ShortAnswer("Short Answer");
 
-    private final String displayName;
+  private final String displayName;
 
-    AnswerType(String s) {
-        displayName = s;
-    }
+  AnswerType(String s) {
+    displayName = s;
+  }
 
-    public String toString() {
-        return this.displayName;
-    }
+  public String toString() {
+    return this.displayName;
+  }
 }

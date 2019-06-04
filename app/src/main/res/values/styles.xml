@@ -1,22 +1,25 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/appBarColor</item>
-        <item name="colorPrimaryDark">@color/statusBarColor</item>
-        <item name="colorAccent">#ffffff</item>
-        <item name="android:textColorPrimary">@color/white100</item>
-    </style>
-    <style name="LaunchTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/backgroundColor</item>
-        <item name="colorPrimary">@color/appBarColor</item>
-        <item name="colorPrimaryDark">@color/statusBarColor</item>
-        <item name="colorAccent">#ffffff</item>
-        <item name="android:textColorPrimary">@color/white100</item>
-    </style>
-    <style name="spinnerStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
-        <item name="android:textColor">@color/white100</item>
-    </style>
-    <style name="alertStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-    </style>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/appBarColor</item>
+    <item name="colorPrimaryDark">@color/statusBarColor</item>
+    <item name="colorAccent">#ffffff</item>
+    <item name="android:textColorPrimary">@color/white100</item>
+  </style>
+
+  <style name="LaunchTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:background">@color/backgroundColor</item>
+    <item name="colorPrimary">@color/appBarColor</item>
+    <item name="colorPrimaryDark">@color/statusBarColor</item>
+    <item name="colorAccent">#ffffff</item>
+    <item name="android:textColorPrimary">@color/white100</item>
+  </style>
+
+  <style name="spinnerStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+    <item name="android:textColor">@color/white100</item>
+  </style>
+
+  <style name="alertStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+  </style>
 </resources>
