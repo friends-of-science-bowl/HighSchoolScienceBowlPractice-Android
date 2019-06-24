@@ -69,7 +69,9 @@ public class ModeratorModeSettingsPage extends AppCompatActivity {
     int setNum = setNumPicker.getValue() + 1;
     int roundNum = roundNumPicker.getValue() + 1;
     boolean isTimedRound = roundTimerButton.isChecked();
-    if ((roundNum == 16 || roundNum == 17) && (setNum == 5 || setNum == 6)) {
+    QuestionJSONParser parser = QuestionJSONParser.getInstance();
+    parser.saveQuestionSetForSetAndRound(setNum, roundNum);
+    if (parser.getCurrentReaderSetLength() == 0) {
       final AlertDialog.Builder builder =
           new AlertDialog.Builder(ModeratorModeSettingsPage.this, R.style.alertStyle);
       builder.setTitle("Invalid Set");
@@ -83,8 +85,6 @@ public class ModeratorModeSettingsPage extends AppCompatActivity {
       builder.show();
     } else {
       Intent intent = new Intent(ModeratorModeSettingsPage.this, ModeratorModePage.class);
-
-      QuestionJSONParser.getInstance().saveQuestionSetForSetAndRound(setNum, roundNum);
 
       int tossupTime = getTossupTimeSelected();
       intent.putExtra("TOSSUP_TIME", tossupTime);

@@ -84,7 +84,7 @@
       android:orientation="vertical">
 
       <TextView
-        android:id="@+id/questionNumLabel"
+        android:id="@+id/roundSetNumLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -92,7 +92,7 @@
         android:textSize="18sp"/>
 
       <TextView
-        android:id="@+id/roundSetNumLabel"
+        android:id="@+id/questionNumLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
