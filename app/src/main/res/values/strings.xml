@@ -4,12 +4,12 @@
   <string name="moderator_mode">Moderator Mode</string>
   <string name="study_mode">Study Mode</string>
   <string name="choose_a_topic">Choose a Topic:</string>
-  <string name="biology">Biology</string>
+  <string name="biology">Life Science</string>
   <string name="earth_and_space">Earth and Space</string>
   <string name="mathematics">Mathematics</string>
   <string name="generalScience">General Science</string>
   <string name="energy">Energy</string>
-  <string name="physics">Physics</string>
+  <string name="physics">Physical Science</string>
   <string name="or_generate_random_questions">Or Generate Random Questions:</string>
   <string name="random">Random</string>
   <string name="select_question_time_limits">Select Round Time Limits:</string>

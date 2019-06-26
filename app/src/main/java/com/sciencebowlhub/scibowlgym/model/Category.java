@@ -5,12 +5,12 @@ package com.sciencebowlhub.scibowlgym.model;
  */
 
 public enum Category {
-  Biology("Biology"),
+  Biology("Life Science"),
   Chemistry("Chemistry"),
   EarthAndSpace("Earth and Space"),
   Energy("Energy"),
   Mathematics("Mathematics"),
-  Physics("Physics"),
+  Physics("Physical Science"),
   GeneralScience("General Science"),
   ComputerScience("Computer Science");
 
