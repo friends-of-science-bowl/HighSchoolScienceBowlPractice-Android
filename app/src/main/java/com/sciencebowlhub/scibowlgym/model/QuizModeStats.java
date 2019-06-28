@@ -18,7 +18,7 @@ public class QuizModeStats implements Parcelable {
     numberNotAnswered = 0;
   }
 
-  protected QuizModeStats(Parcel in) {
+  private QuizModeStats(Parcel in) {
     numberCorrect = in.readInt();
     numberIncorrect = in.readInt();
     numberNotAnswered = in.readInt();

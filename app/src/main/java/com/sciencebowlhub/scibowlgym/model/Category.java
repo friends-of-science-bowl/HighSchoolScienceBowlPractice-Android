@@ -1,5 +1,7 @@
 package com.sciencebowlhub.scibowlgym.model;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by jakepolatty on 9/7/17.
  */
@@ -14,13 +16,36 @@ public enum Category {
   GeneralScience("General Science"),
   ComputerScience("Computer Science");
 
-  private final String displayName;
+  @NonNull private final String displayName;
 
-  Category(String s) {
+  Category(@NonNull String s) {
     displayName = s;
   }
 
+  @NonNull
   public String toString() {
-    return this.displayName;
+    return displayName;
   }
-}
+
+  public static Category fromString(String s) {
+    switch (s) {
+      case "BIO":
+        return Biology;
+      case "CHEM":
+        return Chemistry;
+      case "EAS":
+        return EarthAndSpace;
+      case "ENG":
+        return Energy;
+      case "MATH":
+        return Mathematics;
+      case "PHY":
+        return Physics;
+      case "GS":
+        return GeneralScience;
+      case "CS":
+        return ComputerScience;
+      default:
+        return GeneralScience;
+    }
+  }}

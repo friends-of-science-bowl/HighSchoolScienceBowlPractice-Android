@@ -48,7 +48,7 @@ public class StudyModePage extends AppCompatActivity {
 
     getQuestionForParameters();
     if (question == null) {
-      QuestionJSONParser.getInstance(getApplicationContext());
+      QuestionJSONParser.createInstance(getApplicationContext());
       getQuestionForParameters();
     }
 

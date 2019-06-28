@@ -89,7 +89,7 @@ public class QuizModePage extends AppCompatActivity {
 
     getQuestionForParameters();
     if (question == null) {
-      QuestionJSONParser.getInstance(getApplicationContext());
+      QuestionJSONParser.createInstance(getApplicationContext());
       getQuestionForParameters();
     }
 

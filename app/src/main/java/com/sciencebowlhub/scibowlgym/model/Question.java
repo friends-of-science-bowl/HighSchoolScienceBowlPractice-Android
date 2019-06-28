@@ -1,5 +1,7 @@
 package com.sciencebowlhub.scibowlgym.model;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,18 +17,19 @@ enum QuestionJSONKeys {
   AnswerType("mc"),
   QuestionType("tb");
 
-  private final String keyString;
+  @NonNull private final String keyString;
 
-  QuestionJSONKeys(String s) {
+  QuestionJSONKeys(@NonNull String s) {
     keyString = s;
   }
 
+  @NonNull
   public String key() {
-    return this.keyString;
+    return keyString;
   }
 }
 
-public class Question {
+public class Question implements Comparable<Question> {
   private String questionText;
   private Category category;
   private QuestionType questionType;
@@ -37,81 +40,39 @@ public class Question {
   private String[] answerChoices;
   private String answer;
 
-  Question(JSONObject json) throws JSONException {
-    String qText = json.getString(QuestionJSONKeys.QuestionText.key());
-    String qAnswer = json.getString(QuestionJSONKeys.QuestionAnswer.key());
-    String catString = json.getString(QuestionJSONKeys.Category.key());
-    int setNumber = json.getInt(QuestionJSONKeys.SetNumber.key());
-    int roundNumber = json.getInt(QuestionJSONKeys.RoundNumber.key());
-    int questionNumber = json.getInt(QuestionJSONKeys.QuestionNumber.key());
-    String answerType = json.getString(QuestionJSONKeys.AnswerType.key());
-    String questionType = json.getString(QuestionJSONKeys.QuestionType.key());
+  public Question(JSONObject json) throws JSONException {
+    questionText = json.getString(QuestionJSONKeys.QuestionText.key());
+    answer = json.getString(QuestionJSONKeys.QuestionAnswer.key());
+    setNumber = json.getInt(QuestionJSONKeys.SetNumber.key());
+    roundNumber = json.getInt(QuestionJSONKeys.RoundNumber.key());
+    questionNumber = json.getInt(QuestionJSONKeys.QuestionNumber.key());
+    category = Category.fromString(json.getString(QuestionJSONKeys.Category.key()));
+    answerType = AnswerType.fromString(json.getString(QuestionJSONKeys.AnswerType.key()));
+    questionType = QuestionType.fromString(json.getString(QuestionJSONKeys.QuestionType.key()));
 
-    this.questionText = qText;
-    this.answer = qAnswer;
-    this.setNumber = setNumber;
-    this.roundNumber = roundNumber;
-    this.questionNumber = questionNumber;
-    this.category = getCategoryForString(catString);
-    this.answerType = getATypeForString(answerType);
-    this.questionType = getQTypeForString(questionType);
-
-    if (this.answerType == AnswerType.MultipleChoice) {
+    if (answerType == AnswerType.MultipleChoice) {
       JSONArray ansChoicesArray = json.getJSONArray(QuestionJSONKeys.AnswerChoices.key());
-      String[] ansChoices = new String[4];
-      ansChoices[0] = ansChoicesArray.getString(0);
-      ansChoices[1] = ansChoicesArray.getString(1);
-      ansChoices[2] = ansChoicesArray.getString(2);
-      ansChoices[3] = ansChoicesArray.getString(3);
-      this.answerChoices = ansChoices;
+      answerChoices = new String[4];
+      answerChoices[0] = ansChoicesArray.getString(0);
+      answerChoices[1] = ansChoicesArray.getString(1);
+      answerChoices[2] = ansChoicesArray.getString(2);
+      answerChoices[3] = ansChoicesArray.getString(3);
     } else {
-      this.answerChoices = null;
+      answerChoices = null;
     }
   }
 
-  private Category getCategoryForString(String s) {
-    switch (s) {
-      case "BIO":
-        return Category.Biology;
-      case "CHEM":
-        return Category.Chemistry;
-      case "EAS":
-        return Category.EarthAndSpace;
-      case "ENG":
-        return Category.Energy;
-      case "MATH":
-        return Category.Mathematics;
-      case "PHY":
-        return Category.Physics;
-      case "GS":
-        return Category.GeneralScience;
-      case "CS":
-        return Category.ComputerScience;
-      default:
-        return Category.GeneralScience;
+  public int compareTo(Question o) {
+    if (questionNumber == o.questionNumber) {
+      if (questionType == o.questionType) {
+        return 0;
+      }
+      if (questionType == QuestionType.Tossup) {
+        return -1;
+      }
+      return 1;
     }
-  }
-
-  private QuestionType getQTypeForString(String s) {
-    switch (s) {
-      case "T":
-        return QuestionType.Tossup;
-      case "B":
-        return QuestionType.Bonus;
-      default:
-        return QuestionType.Tossup;
-    }
-  }
-
-  private AnswerType getATypeForString(String s) {
-    switch (s) {
-      case "MC":
-        return AnswerType.MultipleChoice;
-      case "SA":
-        return AnswerType.ShortAnswer;
-      default:
-        return AnswerType.ShortAnswer;
-    }
+    return questionNumber - o.questionNumber;
   }
 
   public String getQuestionText() {

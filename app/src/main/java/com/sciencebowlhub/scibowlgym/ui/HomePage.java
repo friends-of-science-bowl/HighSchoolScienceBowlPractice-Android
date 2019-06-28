@@ -15,7 +15,7 @@ public class HomePage extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home_page);
 
-    QuestionJSONParser.getInstance(getApplicationContext());
+    QuestionJSONParser.createInstance(getApplicationContext());
   }
 
   public void openQuizModeSettings(View view) {
