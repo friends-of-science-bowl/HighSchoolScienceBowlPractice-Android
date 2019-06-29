@@ -75,6 +75,12 @@ public class Question implements Comparable<Question> {
     return questionNumber - o.questionNumber;
   }
 
+  // unique id for dup check
+  public int id() {
+    return (setNumber * 10000 + roundNumber * 100 + questionNumber)
+        * (questionType == QuestionType.Tossup ? -1 : 1);
+  }
+
   public String getQuestionText() {
     return questionText;
   }
