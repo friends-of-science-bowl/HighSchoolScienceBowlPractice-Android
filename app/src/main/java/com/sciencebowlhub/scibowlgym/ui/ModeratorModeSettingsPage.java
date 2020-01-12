@@ -33,6 +33,7 @@ public class ModeratorModeSettingsPage extends AppCompatActivity {
   private ToggleButton roundTimerButton;
 
   private Button menuButton;
+  private Button startSetButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class ModeratorModeSettingsPage extends AppCompatActivity {
 
     roundTimerButton = (ToggleButton) findViewById(R.id.roundTimerButton);
 
+    startSetButton = (Button) findViewById(R.id.startSetButton);
     menuButton = (Button) findViewById(R.id.menuButton);
   }
 

@@ -32,6 +32,7 @@ public class ModeratorModePage extends AppCompatActivity {
   // Toolbar Buttons
   private Button menuButton;
   private Button nextButton;
+  private Button prevButton;
 
   private Button startTimerButton;
 
@@ -114,6 +115,19 @@ public class ModeratorModePage extends AppCompatActivity {
     timerLabel.setText(seconds + " Seconds Left");
 
     menuButton = findViewById(R.id.menuButton);
+
+    prevButton = findViewById(R.id.prevButton);
+    if (questionIndex==0) {
+      prevButton.setText("Return to Settings");
+      prevButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          prevButton.setTextColor(Color.parseColor("#94cffe"));
+          Intent intent = new Intent(ModeratorModePage.this, ModeratorModeSettingsPage.class);
+          startActivity(intent);
+        }
+      });
+    }
 
     nextButton = findViewById(R.id.nextButton);
     if (questionIndex == QuestionJSONParser.getInstance().getCurrentReaderSetLength() - 1) {
@@ -253,6 +267,28 @@ public class ModeratorModePage extends AppCompatActivity {
 
     startActivity(intent);
   }
+
+
+  public void loadPreviousQuestion(View view) {
+    questionTimer.cancel();
+    timerLabel.setVisibility(View.INVISIBLE);
+    nextButton.setTextColor(Color.parseColor("#94cffe"));
+    Intent intent = new Intent(ModeratorModePage.this, ModeratorModePage.class);
+
+    intent.putExtra("TOSSUP_TIME", tossupTime);
+    intent.putExtra("BONUS_TIME", bonusTime);
+    intent.putExtra("INDEX", questionIndex - 1);
+
+    intent.putExtra("TIMED_ROUND", isTimedRound);
+    if (isTimedRound) {
+      intent.putExtra("TIME_REMAINING", roundTimeRemaining);
+      intent.putExtra("HALF", halfNum);
+      intent.putExtra("TIMER_RUNNING", isTimerRunning);
+    }
+
+    startActivity(intent);
+  }
+
 
   public void toggleRoundTimer(View view) {
     if (roundTimerStartToggle.isChecked()) { // Running timer
