@@ -10,6 +10,8 @@ import android.widget.NumberPicker;
 import android.widget.ToggleButton;
 
 import com.sciencebowlhub.scibowlgym.R;
+import com.sciencebowlhub.scibowlgym.model.Category;
+import com.sciencebowlhub.scibowlgym.model.QuestionJSONParser;
 
 public class StudyModeSettingsPage extends AppCompatActivity {
   private static final String[] roundOptions =
@@ -60,6 +62,33 @@ public class StudyModeSettingsPage extends AppCompatActivity {
 
     int roundNum = roundNumPicker.getValue();
     intent.putExtra("ROUND", roundNum);
+
+    QuestionJSONParser parser = QuestionJSONParser.getInstance();
+
+    //all rounds selected
+    if (roundNum==0) {
+      if (selectedCategory.equals("Random")) {
+        //no specific category selected, all questions valid
+        parser.generateRandomQuestionList();
+      }
+      else {
+        //specific category selected, all rounds valid
+        Category cat = getCategoryForString(selectedCategory);
+        parser.generateRandomQuestionsbyCat(cat);
+      }
+    }
+    //specific round selected
+    else {
+      if (selectedCategory.equals("Random")) {
+        //no specific category selected
+        parser.generateRandomQuestionforRound(roundNum);
+      }
+      else {
+        //specific category and round, random order
+        Category cat = getCategoryForString(selectedCategory);
+        parser.generateRandomRoundCat(roundNum, cat);
+      }
+    }
 
     startActivity(intent);
   }
@@ -134,5 +163,24 @@ public class StudyModeSettingsPage extends AppCompatActivity {
     selectedCategory = "Random";
     randomButton.setChecked(true);
     randomButton.setSelected(true);
+  }
+
+  private Category getCategoryForString(String s) {
+    switch (s) {
+      case "Biology":
+        return Category.Biology;
+      case "Chemistry":
+        return Category.Chemistry;
+      case "Earth and Space":
+        return Category.EarthAndSpace;
+      case "Energy":
+        return Category.Energy;
+      case "Math":
+        return Category.Mathematics;
+      case "Physics":
+        return Category.Physics;
+      default:
+        return Category.GeneralScience;
+    }
   }
 }

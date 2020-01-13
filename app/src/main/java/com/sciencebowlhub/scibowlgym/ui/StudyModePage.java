@@ -27,6 +27,7 @@ public class StudyModePage extends AppCompatActivity {
 
   // Toolbar Buttons
   private Button menuButton;
+  private Button prevButton;
   private Button nextButton;
 
   private Button showAnswerButton;
@@ -34,6 +35,7 @@ public class StudyModePage extends AppCompatActivity {
   // Intent fields
   private String category;
   private int round;
+  private int questionIndex;
 
   private Question question;
 
@@ -45,12 +47,9 @@ public class StudyModePage extends AppCompatActivity {
     Intent intent = getIntent();
     category = intent.getStringExtra("CATEGORY");
     round = intent.getIntExtra("ROUND", 0);
+    questionIndex = intent.getIntExtra("INDEX",0);
 
-    getQuestionForParameters();
-    if (question == null) {
-      QuestionJSONParser.createInstance(getApplicationContext());
-      getQuestionForParameters();
-    }
+    Question question = QuestionJSONParser.getInstance().getCurrentReaderQuestion(questionIndex);
 
     roundSetNumLabel = findViewById(R.id.roundSetNumLabel);
     roundSetNumLabel.setText(
@@ -83,7 +82,32 @@ public class StudyModePage extends AppCompatActivity {
     answerLabel.setDisplayText("Answer: " + question.getAnswer());
 
     menuButton = findViewById(R.id.menuButton);
+
+    prevButton = findViewById(R.id.prevButton);
+    if (questionIndex==0) {
+      prevButton.setText("Settings");
+      prevButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          prevButton.setTextColor(Color.parseColor("#94cffe"));
+          Intent intent = new Intent(StudyModePage.this, StudyModeSettingsPage.class);
+          startActivity(intent);
+        }
+      });
+    }
+
     nextButton = findViewById(R.id.nextButton);
+    if (questionIndex == QuestionJSONParser.getInstance().getCurrentReaderSetLength() - 1) {
+      nextButton.setText("Finish Set");
+      nextButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          nextButton.setTextColor(Color.parseColor("#94cffe"));
+          Intent intent = new Intent(StudyModePage.this, StudyModeSettingsPage.class);
+          startActivity(intent);
+        }
+      });
+    }
 
     showAnswerButton = findViewById(R.id.showAnswerButton);
   }
@@ -106,6 +130,18 @@ public class StudyModePage extends AppCompatActivity {
 
     intent.putExtra("CATEGORY", category);
     intent.putExtra("ROUND", round);
+    intent.putExtra("INDEX", questionIndex+1);
+
+    startActivity(intent);
+  }
+
+  public void loadPreviousQuestion(View view) {
+    nextButton.setTextColor(Color.parseColor("#94cffe"));
+    Intent intent = new Intent(StudyModePage.this, StudyModePage.class);
+
+    intent.putExtra("CATEGORY", category);
+    intent.putExtra("ROUND", round);
+    intent.putExtra("INDEX", questionIndex-1);
 
     startActivity(intent);
   }
@@ -113,24 +149,6 @@ public class StudyModePage extends AppCompatActivity {
   public void showAnswer(View view) {
     showAnswerButton.setVisibility(View.INVISIBLE);
     answerLabel.setVisibility(View.VISIBLE);
-  }
-
-  private void getQuestionForParameters() {
-    if (category.equals("Random")) {
-      if (round == 0) {
-        question = QuestionJSONParser.getInstance().getRandomQuestion();
-      } else {
-        question = QuestionJSONParser.getInstance().getQuestionForRound(round);
-      }
-    } else {
-      Category parsedCategory = getCategoryForString(category);
-      if (round == 0) {
-        question = QuestionJSONParser.getInstance().getQuestionForCategory(parsedCategory);
-      } else {
-        question =
-            QuestionJSONParser.getInstance().getQuestionForCategoryAndRound(parsedCategory, round);
-      }
-    }
   }
 
   private Category getCategoryForString(String s) {
