@@ -33,14 +33,15 @@ public class QuestionJSONParser {
 
   private Random rand;
 
-  private @NonNull ArrayList<Question> parsedQuestions;
-  private ArrayList<Question> currentReaderSet;
+  private static @NonNull ArrayList<Question> parsedQuestions;
+  private static ArrayList<Question> currentReaderSet;
 
   // indexed access: by category, by round, by category and round, by set and round.
   private @NonNull EnumMap<Category, ArrayList<Question>> byCategory;
-  private @NonNull SparseArray<ArrayList<Question>> byRound;
-  private @NonNull EnumMap<Category, SparseArray<ArrayList<Question>>> byCategoryRound;
-  private @NonNull SparseArray<SparseArray<ArrayList<Question>>> bySetRound;
+
+  private static @NonNull SparseArray<ArrayList<Question>> byRound;
+  private static @NonNull EnumMap<Category, SparseArray<ArrayList<Question>>> byCategoryRound;
+  private static @NonNull SparseArray<SparseArray<ArrayList<Question>>> bySetRound;
 
   // Initialization from json
 
@@ -112,58 +113,6 @@ public class QuestionJSONParser {
         }
       }
     }
-
-    rand = new Random();
-  }
-
-  // Random question access methods
-
-  private Question getRandomQuestion(@NonNull ArrayList<Question> lst) {
-    int randomIndex = rand.nextInt(lst.size());
-    return lst.get(randomIndex);
-  }
-
-  public Question getRandomQuestion() {
-    return getRandomQuestion(parsedQuestions);
-  }
-
-  public Question getQuestionForCategory(@NonNull Category category) {
-    return getRandomQuestion(byCategory.get(category));
-  }
-
-  public Question getQuestionForCategoryAndRound(Category category, int round) {
-    return getRandomQuestion(byCategoryRound.get(category).get(round));
-  }
-
-  public Question getQuestionForRound(int round) {
-    return getRandomQuestion(byRound.get(round));
-  }
-
-  public int getNumberOfRoundsForSet(int set) {
-    return bySetRound.get(set).size();
-  }
-
-  public Question getMCQuestion() {
-    while (true) {
-      Question question = getRandomQuestion();
-      if (question.getAnswerType() == AnswerType.MultipleChoice) {
-        return question;
-      }
-    }
-  }
-
-  public Question getMCQuestionForCategory(Category category) {
-    while (true) {
-      Question question = getQuestionForCategory(category);
-      if (question.getAnswerType() == AnswerType.MultipleChoice) {
-        return question;
-      }
-    }
-    // Will never time out because of limited category selections
-  }
-
-  public void saveQuestionSetForSetAndRound(int set, int round) {
-    currentReaderSet = bySetRound.get(set).get(round);
   }
 
   public Question getCurrentReaderQuestion(int index) {
@@ -172,5 +121,79 @@ public class QuestionJSONParser {
 
   public int getCurrentReaderSetLength() {
     return currentReaderSet.size();
+  }
+
+  //ALL QUESTIONS, IN ORDER - FOR MODERATOR MODE
+
+  public void saveQuestionSetForSetAndRound(int set, int round) {
+    currentReaderSet = bySetRound.get(set).get(round);
+  }
+
+  //ALL QUESTIONS, RANDOM ORDER - FOR STUDY MODE
+
+  public void generateRandomQuestionList() {
+    currentReaderSet = new ArrayList<Question>(parsedQuestions);
+    Collections.shuffle(currentReaderSet);
+  }
+
+  //MC ONLY, RANDOM ORDER - FOR QUIZ MODE
+
+  public void generateRandomMCQuestionList(){
+    generateRandomQuestionList();
+    for (int i=currentReaderSet.size()-1; i>=0; i--) {
+      if (currentReaderSet.get(i).getAnswerType() != AnswerType.MultipleChoice)
+        currentReaderSet.remove(i);
+    }
+  }
+
+  //ALL QUESTIONS BY CATEGORY, RANDOM ORDER - FOR STUDY MODE
+
+  public void generateRandomQuestionsbyCat(Category cat) {
+    generateRandomQuestionList();
+    for (int i=currentReaderSet.size()-1; i>=0; i--) {
+      if (currentReaderSet.get(i).getCategory() != cat)
+        currentReaderSet.remove(i);
+    }
+  }
+
+  //MC ONLY BY CATEGORY, RANDOM - FOR QUIZ MODE
+
+  public void generateMCQuestionByCat(Category cat) {
+    generateRandomQuestionList();
+    for (int i=currentReaderSet.size()-1; i>=0; i--) {
+      if (currentReaderSet.get(i).getCategory() != cat ||
+              currentReaderSet.get(i).getAnswerType() != AnswerType.MultipleChoice)
+        currentReaderSet.remove(i);
+    }
+  }
+
+  //ALL QUESTIONS BY ROUND - FOR STUDY MODE
+
+  private void shuffleRoundQuestions() {
+    for (int i=0; i<byRound.size(); i++) {
+      int round = byRound.keyAt(i);
+      Collections.shuffle(byRound.get(round));
+    }
+  }
+
+  public void generateRandomQuestionforRound(int round) {
+    shuffleRoundQuestions();
+    currentReaderSet = byRound.get(round);
+  }
+
+  //ALL QUESTIONS BY CATEGORY AND ROUND - FOR STUDY MODE
+
+  private void shuffleRoundCat() {
+    for (Category cat: byCategoryRound.keySet()) {
+      for (int i=0; i<byCategoryRound.get(cat).size(); i++) {
+        int round = byCategoryRound.get(cat).keyAt(i);
+        Collections.shuffle(byCategoryRound.get(cat).get(round));
+      }
+    }
+  }
+
+  public void generateRandomRoundCat(int round, Category cat) {
+    shuffleRoundCat();
+    currentReaderSet = byCategoryRound.get(cat).get(round);
   }
 }
